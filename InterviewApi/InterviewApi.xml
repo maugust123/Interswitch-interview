@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InterviewApi</name>
+    </assembly>
+    <members>
+        <member name="T:InterviewApi.Controllers.InterSwitchController">
+            <summary>
+            InterSwitch end points
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Controllers.InterSwitchController.#ctor(InterviewApi.BusinessLogic.Services.Validation.ICustomerValidationService,InterviewApi.BusinessLogic.Services.PaymentNotification.IPaymentNotificationService)">
+            <summary>
+            Constructor for DI
+            </summary>
+            <param name="customerValidation"></param>
+            <param name="notificationService"></param>
+        </member>
+        <member name="M:InterviewApi.Controllers.InterSwitchController.ValidateCustomer(InterviewApi.BusinessLogic.Models.ValidateCustomerModel)">
+            <summary>
+            Validate customer
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterviewApi.Controllers.InterSwitchController.SendPaymentNotification(InterviewApi.BusinessLogic.Models.PaymentNotificationModel)">
+            <summary>
+            Validate customer
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InterviewApi.Filters.ErrorHandlingMiddleware">
+            <summary>
+            Global error handling
+            </summary>
+        </member>
+        <member name="P:InterviewApi.Filters.ErrorHandlingMiddleware.Logger">
+            <summary>
+            Logging framework
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Filters.ErrorHandlingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,InterviewApi.Common.MailBase.IEmailSender,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{InterviewApi.Common.AppSecretsConfig})">
+            <summary>
+            
+            </summary>
+            <param name="next"></param>
+            <param name="emailSender"></param>
+            <param name="loggerFactory"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:InterviewApi.Filters.FlashActionLogs">
+            <summary>
+            Used to flash Serilog file logs
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Filters.FlashActionLogs.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            Action execution attribute
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterviewApi.Filters.LogHelper.EnrichFromRequest(Serilog.IDiagnosticContext,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Retrieve additional logger information from the request
+            </summary>
+            <param name="diagnosticContext"></param>
+            <param name="httpContext"></param>
+        </member>
+        <member name="T:InterviewApi.Filters.ValidateFilterAttribute">
+            <summary>
+            Action filter attribute
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Filters.ValidateFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            On action executing
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:InterviewApi.Filters.ValidationError">
+            <summary>
+            Validation error
+            </summary>
+        </member>
+        <member name="T:InterviewApi.Middleware.ErrorHandlingExtensions">
+            <summary>
+            Custom api error handling
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Middleware.ErrorHandlingExtensions.UseApiErrorHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Insert error handling middleware
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InterviewApi.Program">
+            <summary>
+            Application entry class
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Program.Main(System.String[])">
+            <summary>
+            Application entry method
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:InterviewApi.Startup">
+            <summary>
+            Startup class
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup constructor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:InterviewApi.Startup.Configuration">
+            <summary>
+            Get configuration service
+            </summary>
+        </member>
+        <member name="M:InterviewApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:InterviewApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
