@@ -69,6 +69,11 @@ namespace InterviewApi.Common.Extensions
             return value;
         }
 
+        /// <summary>
+        /// Base64 encode
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string ToBase64Encode(this string text)
         {
             if (String.IsNullOrEmpty(text))
@@ -80,48 +85,23 @@ namespace InterviewApi.Common.Extensions
             return Convert.ToBase64String(textBytes);
         }
 
-        public static string ToBase64Decode(this string base64EncodedText)
+        public static string ToSHA1(this string text)
         {
-            if (String.IsNullOrEmpty(base64EncodedText))
-            {
-                return base64EncodedText;
-            }
-
-            byte[] base64EncodedBytes = Convert.FromBase64String(base64EncodedText);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
-
-
-        public static string ToSHA512(this string text)
-        {
-            text = "hell";
-
             byte[] bytes = Encoding.UTF8.GetBytes(text);
             Sha1Digest sha1Digest = new Sha1Digest();
             sha1Digest.BlockUpdate(bytes, 0, bytes.Length);
             byte[] numArray = new byte[sha1Digest.GetDigestSize()];
             sha1Digest.DoFinal(numArray, 0);
-            var signature= Convert.ToBase64String(numArray);
+            var signature = Convert.ToBase64String(numArray);
             return signature;
         }
 
-        public static byte[] Hash(byte[] data)
+        public static string ToSha1_2(this string text)
         {
-            Sha256Digest sha256 = new Sha256Digest();
-            sha256.BlockUpdate(data, 0, data.Length);
-            byte[] hash = new byte[sha256.GetDigestSize()];
-            sha256.DoFinal(hash, 0);
-            return hash;
-        }
-
-        public static string ComputeHash(string input)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(input);
-            Sha1Digest sha1Digest = new Sha1Digest();
-            sha1Digest.BlockUpdate(bytes, 0, bytes.Length);
-            byte[] numArray = new byte[sha1Digest.GetDigestSize()];
-            sha1Digest.DoFinal(numArray, 0);
-            return Convert.ToBase64String(numArray);
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            SHA1Managed hashstring = new SHA1Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
         }
 
     }

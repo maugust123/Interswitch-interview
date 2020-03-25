@@ -19,9 +19,9 @@ namespace InterviewApi.BusinessLogic.Services.HttpWraper
             return client.GetAsync(uri).Result;
         }
 
-        public HttpResponseMessage Post<T>(string uri, T model)
+        public HttpResponseMessage Post<T>(string uri, T model, string additionalParameters = "")
         {
-            var client = _interSwitchAuth.AddCustomHeaders(HttpClient, HttpMethod.Post.Method, uri);
+            var client = _interSwitchAuth.AddCustomHeaders(HttpClient, HttpMethod.Post.Method, uri, additionalParameters);
 
             return client.PostAsync(uri, model.ToHttpContent()).Result;
         }

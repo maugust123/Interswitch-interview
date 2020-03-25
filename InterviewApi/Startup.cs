@@ -113,7 +113,7 @@ namespace InterviewApi
                 options.Filters.Add(typeof(ValidateFilterAttribute));
                 //options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAll"));//Add cors policy name here
                 options.ReturnHttpNotAcceptable = true;
-                options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+                //options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
                 //options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 options.Filters.Add(new FlashActionLogs());
             })
@@ -127,23 +127,16 @@ namespace InterviewApi
                .SetCompatibilityVersion(CompatibilityVersion.Latest)
                //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CompanyValidator>())
                .AddXmlDataContractSerializerFormatters()
-               //.AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNamingPolicy = null; })//Returns Json as Pascal case rather than camelcase
+                //.AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNamingPolicy = null; })//Returns Json as Pascal case rather than camelcase
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddCors(options => options.AddPolicy("AllowAll", builder =>
             {
                 builder
-                    //.WithOrigins("http://localhost:4456") //AllowSpecificOrigins;  
-                    //.WithOrigins("http://localhost:4456", "http://localhost:4457") //AllowMultipleOrigins;  
                     .AllowAnyOrigin() //AllowAllOrigins;  
                     .WithMethods("GET", "PUT", "POST", "DELETE") //AllowSpecificMethods;  
-                                                                 //.AllowAnyMethod() //AllowAllMethods;  
-
-                    //.WithHeaders("Accept", "Content-type", "Origin", "X-Custom-Header"); //AllowSpecificHeaders;  
                     .WithExposedHeaders("X-Pagination")
                     .AllowAnyHeader(); //AllowAllHeaders;  
-
-                //.AllowCredentials(); //This is valid for authentication
             }));
 
             services.AddControllers()
@@ -225,7 +218,6 @@ namespace InterviewApi
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto //Harden security
             });
 
-            //app.UseApiErrorHandling();
             app.UseHttpsRedirection();
             app.UseStaticFiles();//goes here if needed
 

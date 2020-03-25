@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using InterviewApi.BusinessLogic.Models;
 using InterviewApi.BusinessLogic.Services.HttpWraper;
@@ -10,7 +7,7 @@ using static InterviewApi.Common.Settings;
 
 namespace InterviewApi.BusinessLogic.Services.PaymentNotification
 {
-    public class PaymentNotificationService: IPaymentNotificationService
+    public class PaymentNotificationService : IPaymentNotificationService
     {
         private readonly IHttpClientWrapper _httpClient;
 
@@ -21,7 +18,8 @@ namespace InterviewApi.BusinessLogic.Services.PaymentNotification
 
         public async Task<PaymentNotificationResponse> SendPaymentNotification(PaymentNotificationModel model)
         {
-            HttpResponseMessage response = _httpClient.Post(PaymentNotificationUrl, model);
+            var additionalParams = $"&{model.Amount}&{model.RequestReference}&{model.CustomerId}&{model.PaymentCode}";
+            HttpResponseMessage response = _httpClient.Post(PaymentNotificationUrl, model, additionalParams);
             return await response.Content.ReadAsJsonAsync<PaymentNotificationResponse>();
         }
     }
