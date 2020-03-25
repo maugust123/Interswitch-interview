@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,22 +14,11 @@ namespace InterviewApi.Common.Extensions
         /// Checks for generic nullable objects
         /// </summary>
         /// <typeparam name="T">Object type</typeparam>
-        /// <param name="@object">Object</param>
+        /// <param name="object">Object</param>
         /// <returns>True or False</returns>
         public static bool IsNull<T>(this T @object)
         {
             return Equals(@object, null);
-        }
-
-        /// <summary>
-        /// Checks if the object is not null
-        /// </summary>
-        /// <typeparam name="T">Object type</typeparam>
-        /// <param name="@object">Object</param>
-        /// <returns>True or false</returns>
-        public static bool IsNotNull<T>(this T @object)
-        {
-            return !IsNull(@object);
         }
 
         /// <summary>
@@ -49,17 +37,6 @@ namespace InterviewApi.Common.Extensions
             HttpContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             return content;
 
-        }
-
-        /// <summary>
-        /// Deserialize string to Object
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static T DeserializeObject<T>(this string data)
-        {
-            return JsonConvert.DeserializeObject<T>(data);
         }
 
         public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content)
@@ -99,8 +76,8 @@ namespace InterviewApi.Common.Extensions
         public static string ToSha1_2(this string text)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(text);
-            SHA1Managed hashstring = new SHA1Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
+            SHA1Managed sha1Managed = new SHA1Managed();
+            byte[] hash = sha1Managed.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
 

@@ -21,7 +21,10 @@ namespace InterviewApi.BusinessEntities.Models.ModelConfig
             builder.Property(p => p.CorporateTypeId).IsRequired();
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.HasOne(p => p.User).WithMany().HasForeignKey(f => f.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.User).WithMany()
+                .HasForeignKey(f => f.UserId) 
+                .OnDelete(DeleteBehavior.Cascade); //One to one
+
             builder.HasOne(p => p.CorporateType)
                 .WithMany(p => p.UserCorporateTypes)
                 .HasForeignKey(f => f.CorporateTypeId).IsRequired()

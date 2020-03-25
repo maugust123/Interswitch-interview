@@ -15,7 +15,10 @@ namespace InterviewApi.BusinessEntities.Models.ModelConfig
             builder.Property(p => p.Name).IsRequired();
             builder.Property(m => m.BankId).IsRequired();
             builder.HasQueryFilter(p => p.IsActive);
-            builder.HasOne(p => p.Bank).WithMany(p => p.BankBranches).HasForeignKey(f => f.BankId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.Bank)
+                .WithMany(p => p.BankBranches)
+                .HasForeignKey(f => f.BankId).IsRequired()
+                .OnDelete(DeleteBehavior.Cascade); //One to many
 
 
         }
@@ -40,8 +43,13 @@ namespace InterviewApi.BusinessEntities.Models.ModelConfig
             builder.Property(m => m.BankBranchId).IsRequired();
             builder.HasQueryFilter(p => p.IsActive);
 
-            builder.HasOne(p => p.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(p => p.BankBranch).WithMany().HasForeignKey(x => x.BankBranchId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(p => p.User).WithMany()
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.BankBranch).WithMany()
+                .HasForeignKey(x => x.BankBranchId).IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

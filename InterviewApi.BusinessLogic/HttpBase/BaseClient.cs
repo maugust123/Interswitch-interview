@@ -8,8 +8,6 @@ namespace InterviewApi.BusinessLogic.HttpBase
 {
     public class BaseClient : ReadConfig, IBaseClient
     {
-        public string Resource { get; set; }
-        private const string AuthorizationRealm = "InterswitchAuth";
         public HttpClient HttpClient { get; private set; }
         public BaseClient(IOptions<AppSecretsConfig> options) : base(options)
         {

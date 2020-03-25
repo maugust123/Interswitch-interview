@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using InterviewApi.BusinessLogic.Models;
 using InterviewApi.BusinessLogic.Services.PaymentNotification;
 using InterviewApi.BusinessLogic.Services.Validation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InterviewApi.Controllers
@@ -46,7 +42,7 @@ namespace InterviewApi.Controllers
         }
 
         /// <summary>
-        /// Validate customer
+        /// Send payment notification
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InterviewApi.BusinessEntities.Models.Model;
+﻿using InterviewApi.BusinessEntities.Models.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,7 +13,7 @@ namespace InterviewApi.BusinessEntities.Models.ModelConfig
             builder.HasOne(p => p.UserType)
                 .WithMany(p => p.Users)
                 .HasForeignKey(f => f.UserTypeId).IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade); //One to many
 
 
         }
