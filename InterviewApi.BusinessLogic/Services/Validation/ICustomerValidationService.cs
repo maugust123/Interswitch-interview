@@ -5,6 +5,6 @@ namespace InterviewApi.BusinessLogic.Services.Validation
 {
     public interface ICustomerValidationService
     {
-        Task<ValidateCustomerResponse> ValidateCustomer(ValidateCustomerModel model);
+        Task<ValidateCustomerResponse> ValidateCustomer(Models.ValidateCustomerModel model);
     }
 }

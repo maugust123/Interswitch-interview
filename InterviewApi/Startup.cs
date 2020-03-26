@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using FluentValidation.AspNetCore;
 using InterviewApi.BusinessEntities;
 using InterviewApi.BusinessEntities.Models.Model;
 using InterviewApi.BusinessLogic.HttpBase;
 using InterviewApi.BusinessLogic.Services.HttpWraper;
 using InterviewApi.BusinessLogic.Services.PaymentNotification;
+using InterviewApi.BusinessLogic.Services.PaymentNotification.Validation;
 using InterviewApi.BusinessLogic.Services.Validation;
+using InterviewApi.BusinessLogic.Services.Validation.ValidateCustomerModel;
+using InterviewApi.BusinessLogic.Validators;
 using InterviewApi.Common;
 using InterviewApi.Common.MailBase;
 using InterviewApi.Filters;
@@ -60,24 +64,11 @@ namespace InterviewApi
 
             services.AddDbContext<InterviewApiContext>(options =>
             {
-                //options.UseLoggerFactory(GetLoggerFactory());
                 options.UseSqlServer(Configuration["AppKeys:DefaultConnection"]);
             });
 
-            //services.AddIdentity<User, Role>(cfg =>
             services.AddIdentity<User, Role>(cfg =>
             {
-                //cfg.Password =new PasswordOptions
-                //{
-                //    RequireDigit = true,
-                //};
-
-                //cfg.Lockout = new LockoutOptions
-                //{
-                //    MaxFailedAccessAttempts = 5,
-                //    DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60),
-                //};
-
                 cfg.User = new UserOptions
                 {
                     RequireUniqueEmail = true,
@@ -100,10 +91,6 @@ namespace InterviewApi
                 cfg.AssumeDefaultVersionWhenUnspecified = true;
                 cfg.ReportApiVersions = true;
                 cfg.ApiVersionReader = new HeaderApiVersionReader("X-Version"); //This works when u want to get version info from the headers only
-                //cfg.ApiVersionReader = ApiVersionReader.Combine( //This works when you want to have more than one schema
-                //    new HeaderApiVersionReader("X-Version"), //This works when u want to get version info from the headers OR 
-                //    new QueryStringApiVersionReader("v")//When u want to get version info as a query string - perameter name is v
-                //    );
             });
 
 
@@ -112,10 +99,9 @@ namespace InterviewApi
                 options.Filters.Add(typeof(ValidateFilterAttribute));
                 //options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAll"));//Add cors policy name here
                 options.ReturnHttpNotAcceptable = true;
-                //options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
-                //options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 options.Filters.Add(new FlashActionLogs());
             })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CustomerModelValidator>())
                .AddNewtonsoftJson(opt =>
                {
                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -124,8 +110,7 @@ namespace InterviewApi
                    opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                })
                .SetCompatibilityVersion(CompatibilityVersion.Latest)
-               //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CompanyValidator>())
-               .AddXmlDataContractSerializerFormatters()
+                .AddXmlDataContractSerializerFormatters()
                 //.AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNamingPolicy = null; })//Returns Json as Pascal case rather than camelcase
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -189,7 +174,9 @@ namespace InterviewApi
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IHttpClientWrapper, HttpClientWrapper>();
             services.AddTransient<IInterSwitchAuth, InterswitchAuth>();
+            services.AddTransient<IValidateCustomerModelService, ValidateCustomerModelService>();
             services.AddTransient<ICustomerValidationService, CustomerValidationService>();
+            services.AddTransient<IPaymentValidationService, PaymentValidationService>();
             services.AddTransient<IPaymentNotificationService, PaymentNotificationService>();
         }
 
