@@ -12,11 +12,12 @@ To run the project, the following are required
 To generate the database, in Visio studio under the package console manager, select InterviewApi.BusinessEntities then run the following command: "Update-Database". This will generate the full database schema based on code written in the business entities class library. Alternatively, you can manually run the db script added in the project directory in sql server
 
 ## Project structure
-The project is classified into 4 class libraries i.e InterviewApi, InterviewApi.BusinessEntities, InterviewApi.BusinessLogic, InterviewApi.Common.
+The project is classified into 4 class libraries i.e InterviewApi, InterviewApi.BusinessEntities, InterviewApi.BusinessLogic, InterviewApi.Common, and InterviewApi.Tests.
   1. InterviewApi. This is the entry point into the application and its a central point through which all class libraries integrate. The end-points are defined in this class library
   2. InterviewApi.BusinessEntities. This is the data access layer of the system. The application DB context and the generic repository is defined here through which data is accessed. A code first approach was used to designed and modify the database.
   3. InterviewApi.BusinessLogic. In this layer, all business logic is written. i.e The logic to access inter-switch API, and the services that are used to validate a customer, send payment notification and authenticating these requests
   4. InterviewApi.Common. All common utilities and supporting business extension methods are defined in this class library
+  5. InterviewApi.Tests. Here, sample unit tests have been written to demostrate how a class can be tested
 
 ## Question 1
 A code first approach has been used to address question one. AspNetUser table has been extended by adding more fields and relationships that meet the question description. DTOs have been added referencing the user table. In the "ModelConfig" directory, relationships and required fields have been defined as instructed in the question. In the project directory are two files i.e "erd_diagram.png" (ER diagram showing the table relationships) and "Db structure.png" (Show the database table structure)
