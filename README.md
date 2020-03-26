@@ -1,4 +1,4 @@
-# Interswitch-interview
+# Interswitch-Integration
 The project is designed using Visual studio 2019 as an editor, .Net core3.1 and c# as a language. It's a web API that uses Swagger UI to describe and test the two designed endpoints i.e
 -/api/InterSwitch/validate-customer
 -/api/InterSwitch/send-payment-notification
@@ -29,7 +29,9 @@ In the InterviewApi.BusinessLogic class library, services have been written to a
   3. IHttpClientWrapper is a generic request wrapper service through which Post and Get requests are done. Its basically used to separate API access logic from the business rules service logic
   4. ICustomerValidationService. In this service, the business rule to validate a customer is written. This class serves only one purpose which demonstrates the separation of concerns rule
   5. PaymentNotificationService contains the business rules to required to send notification logic to the Interswitch API
-  6. End-points. In the "InterviewApi" class library under "Controllers" directory are two controllers. i.e "BaseController" (In which logic that is common to all controllers is written) and "InterSwitchController" (In this controller I define two end-points i.e "validate-customer" and "send-payment-notification". Swagger is used to provide an interactive UI to these two end-points by making simple post requests)
+  6. Using fluentValidation, classes "IPaymentValidationService" and "IValidateCustomerModelService" are used to validate user input details and return valid responses to the user.
+  7. End-points. In the "InterviewApi" class library under "Controllers" directory are two controllers. i.e "BaseController" (In which logic that is common to all controllers is written) and "InterSwitchController" (In this controller I define two end-points i.e "validate-customer" and "send-payment-notification". Swagger is used to provide an interactive UI to these two end-points by making simple post requests)
+  8. Sample unit tests have been written for services: "CustomerValidationService" and "PaymentNotificationService" to demostrate testing abilities.
 
 ### Challenges.
 Much as all this logic is written, I faced a challenge when generating valid signatures. The standard .net Cryptography methods that generate signatures don't match the corresponding versions of Java. I have added two sample methods that I've tried to generate a corresponding signature i.e "ToSHA1()" and "ToSha1_2()" all found in the "ObjectExtensions" class. I'll continue to look for a proper MessageDigest equivalence in c# that could help someone in the future.
